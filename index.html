@@ -28,40 +28,39 @@
         <![endif]-->
 
         <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-
+        <div class="container">
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="#" style="font-size: 24pt";>Snort Real Time Events Checking System</a>
                     <div class="nav-collapse collapse">
-                        <form class="navbar-form pull-right">
-                            <button type="submit" class="btn">Logout</button>
-                        </form>
+                        <button type="submit" class="btn btn-primary pull-right">Logout</button>
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>
-
+		</div>
         <div class="container">
             <!-- Example row of columns -->
             <div class="row">
                 <div class="span3">
-					<ul class="nav nav-list">
-						<div class="well">
-							<li class="nav-header">Events show</li>
-							<li class="active"><a href="#tab1" data-toggle="tab">Section 1</li>
-							<li><a href="#tab1" data-toggle="tab">Section 2</li>
-							<li><a href="#tab1" data-toggle="tab">Section 3</li>
-							<li><a href="#tab1" data-toggle="tab">Section 4</li>
-							<li><a href="#tab1" data-toggle="tab">Section 5</li>
-							<li><a href="#tab1" data-toggle="tab">Section 6</li>
-						</div>
-					</ul>
+					<div class="well sidebar-nav">
+						<ul class="nav nav-tabs nav-stacked">
+							<li class="active"><a href="#">Events explanation</a></li>
+							<li><a href="#">Total events</a></li>
+							<li><a href="#">Events statistics</a></li>
+							<li><a href="#">Latest events</a></li>
+							<li><a href="#">Events catogery</a></li>
+							<li><a href="#">Other</a></li>
+						</ul>
+					</div><!--/.well -->
                 </div>
                 <div class="span9">
+				<div class="well">
                     <h2>Heading</h2>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
                     <p><a class="btn" href="#">View details &raquo;</a></p>
+				</div>
                </div>
             </div>
 
