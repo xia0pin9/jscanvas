@@ -6,9 +6,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Snort Real Time Events Checking System</title>
+        <title></title>
         <meta name="description" content="">
-        <meta name="viewport"> <!-- content="width=device-width"> -->
+        <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <style>
@@ -19,6 +19,7 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
+
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
@@ -26,91 +27,51 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="" style="font-size: 24pt";>Snort Real Time Events Checking System</a>
+                    <a class="brand" href="#" style="font-size: 24pt";>Snort Real Time Events Checking System</a>
+                    <div class="nav-collapse collapse">
+                        <form class="navbar-form pull-right">
+                            <button type="submit" class="btn">Logout</button>
+                        </form>
+                    </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>
 
-        <!-- <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <h1 class="brand" style="font-size: 24pt";>Snort Real Time Events Checking System</h1>
-                </div>
-            </div>
-        </div> -->
-
-        <div id="mainframe" class="container-fluid">
+        <div class="container">
             <!-- Example row of columns -->
-            <div class="row-fluid">
-            	<div class="span3">
+            <div class="row">
+                <div class="span3">
 					<ul class="nav nav-list">
-					<div class="well">
-						<li class="nav-header">Events show</li>
-						<li class="active"><a href="#tab1" data-toggle="tab">Section 1</li>
-						<li><a href="#tab1" data-toggle="tab">Section 2</li>
-						<li><a href="#tab1" data-toggle="tab">Section 3</li>
-						<li><a href="#tab1" data-toggle="tab">Section 4</li>
-						<li><a href="#tab1" data-toggle="tab">Section 5</li>
-						<li><a href="#tab1" data-toggle="tab">Section 6</li>
-					</div>
-					</ul>	
-				
-       			 	<!-- <div class="tabbable tabs-left">
-						<ul class="nav nav-tabs">
-		   					<li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
-    						<li><a href="#tab2" data-toggle="tab">Section 2</a></li>
-    						<li><a href="#tab2" data-toggle="tab">Section 3</li>
-    						<li><a href="#tab2" data-toggle="tab">Section 4</li>
-    						<li><a href="#tab2" data-toggle="tab">Section 5</li>
-    						<li><a href="#tab2" data-toggle="tab">Section 6</li>
-  						</ul>
-  						<div class="tab-content">
-							    <div class="tab-pane active" id="tab1">
-      								<p>I'm in Section 1.</p>
-    							</div>
-    							<div class="tab-pane" id="tab2">
-      								<p>Howdy, I'm in Section 2.</p>
-    							</div>
-  						</div>
-					</div> -->
-					
-					
-            	</div>
-            	<div class="span6"> 
-					<div class="container chart">
-						<div id="map">Test graph</div>
-					</div>
-				
-				<!-- <table>
-  					<caption>...</caption>
-  					<thead>
-    					<tr>
-      						<th>...</th>
-      						<th>...</th>
-    					</tr>
-  					</thead>
-  					<tbody>
-    					<tr>
-      						<td>...</td>
-      						<td>...</td>
-    					</tr>
-  					</tbody>
-				</table> -->
-            	<!--Body Content-->
-            	</div>
+						<div class="well">
+							<li class="nav-header">Events show</li>
+							<li class="active"><a href="#tab1" data-toggle="tab">Section 1</li>
+							<li><a href="#tab1" data-toggle="tab">Section 2</li>
+							<li><a href="#tab1" data-toggle="tab">Section 3</li>
+							<li><a href="#tab1" data-toggle="tab">Section 4</li>
+							<li><a href="#tab1" data-toggle="tab">Section 5</li>
+							<li><a href="#tab1" data-toggle="tab">Section 6</li>
+						</div>
+					</ul>
+                </div>
+                <div class="span9">
+                    <h2>Heading</h2>
+                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+               </div>
             </div>
 
             <hr>
 
             <footer>
-                <p>&copy; Copyright  by Yuping Li &amp; Xiaolong Wang</p>
+                <p>&copy; Company 2012</p>
             </footer>
 
         </div> <!-- /container -->
-
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
