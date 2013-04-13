@@ -19,8 +19,18 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
-
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+        <script>
+            $.get("lock.php", function(data) {
+                if (data.toString() == "error")
+                {   window.location.href = "login.html"; }
+                else
+                {    
+		    $(".login_user").text(data.toString());
+		}
+            });
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -32,9 +42,16 @@
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="#" style="font-size: 24pt";>Snort Real Time Events Checking System</a>
+                    <a class="brand" href="#" style="font-size: 24pt">Snort Real Time Events Checking System</a>
                     <div class="nav-collapse collapse">
-                        <button type="submit" class="btn btn-primary pull-right">Logout</button>
+		    	<ul class="nav pull-right">
+			<li><p class="nav navbar-text">Logged in as: <span class="login_user"></span></p></li>
+			<li>
+			<form class="navbar-form" action="logout.php">
+                            <button type="submit" class="btn btn-primary">Logout</button>
+			</form>
+			</li>
+			</ul>
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
@@ -71,10 +88,7 @@
             </footer>
 
         </div> <!-- /container -->
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-
         <script src="js/vendor/bootstrap.min.js"></script>
-
         <script src="js/main.js"></script>
     </body>
 </html>

@@ -1,9 +1,9 @@
 <?php
 ob_start();
 $username = "root";
-$password = "wxl198881";
+$password = "password";
 $hostname = "localhost";
-$database = "mydb";
+$database = "snort";
 
 
 // connect to the server
@@ -19,7 +19,7 @@ $mypassword = $_POST['password'];
 $mypassword = md5($mypassword);
 
 //prepared statement
-if(!($stmt = $conn->prepare("SELECT username FROM `user` WHERE username = ? AND password = ? LIMIT 5"))){
+if(!($stmt = $conn->prepare("SELECT username FROM `mysql.user` WHERE username = ? AND password = ? LIMIT 5"))){
 	echo "Prepare failed: (" . $conn->errno . ") " . $conn->error;
 }
 
