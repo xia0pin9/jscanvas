@@ -40,21 +40,18 @@ switch($mode) {
 
     	break;
     case "latest":
-    	$query = "select inet_ntoa(ip_src) as ipsrc, inet_ntoa(ip_dst) as ipdst, sig_name, timestamp from event, iphdr, signature where iphdr.cid = event.cid and signature.sig_id = event.signature limit 10";
-	$thead = array("Source IP", "Destination IP", "Signature", "Timestamp");
+	$query = "select inet_ntoa(ip_src) as ipsrc, inet_ntoa(ip_dst) as ipdst, sig_name, timestamp from event, iphdr, signature where iphdr.cid = event.cid and signature.sig_id = event.signature limit 10";
+	$thead = array("Source IP", "Destination IP", "Signature Info", "Timestamp");
 	$tbody = array();
-	if ($result = $mysqli->query($query))
+	$result = $mysqli->query($query);
+	if ($result->num_rows > 0)
 	{    
-	    while($row = $result->fetc_assoc()) {
-		array_push($tbody, array(
-		$row["ipsrc"],
-		$row["ipdst"],
-		$row["sig_name"],
-		$row["timestamp"]));
-	    }
+	    while($row = $result->fetch_assoc()) {
+		array_push($tbody, array($row['ipsrc'],$row['ipdst'],$row['sig_name'],$row['timestamp']));
+	    };
 	}
 	echo json_encode(array($thead,$tbody));
-	$result->free();
+	//$result->free();
 	break;
 }
 
