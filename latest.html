@@ -13,80 +13,111 @@
             <!-- Example row of columns -->
             <div class="row">
 				<div class="span11">
-					<div class="well">					
-						<table class="table table-bordered">
-							<!-- <caption></caption> -->
+					<div class="well">
+						<script>
+						$.ajax({
+							url: 'query.php', 
+							success: function(point) {
+							var data = point;
+							alert(data);
+							},
+							cache: false,
+							data: 'mode=latest'
+							contentType: "application/json; charset=utf-8",
+							type:"GET"
+						});
+						</script>
+						<!-- Table date from mysql db;
+						data = [
+						thead =>
+							[Source IP		Destination IP	Signature										Timestamp],
+						tbody => [
+							[129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:31]
+							[129.130.10.82	164.113.67.80	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:31]
+							[129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:36]
+							[129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses					2012-05-10 14:35:38]
+							[129.130.10.133	98.129.116.171	SDF_COMBO_ALERT									2012-05-10 14:35:38]
+							[129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses					2012-05-10 14:35:40]
+							[129.130.10.133	98.129.116.171	SDF_COMBO_ALERT									2012-05-10 14:35:40]
+							[129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses					2012-05-10 14:35:42]
+							[129.130.10.133	98.129.116.171	SDF_COMBO_ALERT									2012-05-10 14:35:42]
+							[129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:42]
+						]	
+						-->
+						<!--create table-->
+						<table class="table table-bordered">	
 							<thead>
 								<tr>
-									<th>Source</th>
-									<th>Destination</th>
-									<th>Event Info</th>
+									<th>Source IP</th>
+									<th>Destination IP</th>
+									<th>Signature Info</th>
 									<th>Timestamp</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>10.130.129.10</td>
-									<td>10.130.129.11</td>
-									<td>Scanning</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.82</td>
+									<td>164.113.67.73</td>
+									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
+									<td>2012-05-10 14:35:31</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.82</td>
+									<td>164.113.67.80</td>
+									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
+									<td>2012-05-10 14:35:31</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.82</td>
+									<td>164.113.67.73</td>
+									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
+									<td>2012-05-10 14:35:36</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.133</td>
+									<td>98.129.116.171</td>
+									<td>SENSITIVE-DATA Email Addresses	</td>
+									<td>2012-05-10 14:35:38</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.133</td>
+									<td>98.129.116.171</td>
+									<td>SDF_COMBO_ALERT</td>
+									<td>2012-05-10 14:35:38</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.133</td>
+									<td>98.129.116.171</td>
+									<td>SENSITIVE-DATA Email Addresses	</td>
+									<td>2012-05-10 14:35:40</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.133</td>
+									<td>98.129.116.171</td>
+									<td>SDF_COMBO_ALERT</td>
+									<td>2012-05-10 14:35:40</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.133</td>
+									<td>98.129.116.171</td>
+									<td>SENSITIVE-DATA Email Addresses	</td>
+									<td>2012-05-10 14:35:42</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.133</td>
+									<td>98.129.116.171</td>
+									<td>SDF_COMBO_ALERT</td>
+									<td>2012-05-10 14:35:42</td>
 								</tr>
 								<tr>
-									<td>10.130.129.12</td>
-									<td>10.130.129.13</td>
-									<td>Exploit</td>
-									<td>4/12/2013</td>
+									<td>129.130.10.82</td>
+									<td>164.113.67.73</td>
+									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
+									<td>2012-05-10 14:35:42</td>
 								</tr>										
 							</tbody>
 						</table>
+						<!--end create table-->
 					</div>
 				</div>
             </div>

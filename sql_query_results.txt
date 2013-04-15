@@ -1,0 +1,104 @@
+
++------+-------+---------+
+| year | month | total   |
++------+-------+---------+
+| 2012 | 05    |  906993 |
+| 2012 | 06    |  531714 |
+| 2012 | 07    |  519869 |
+| 2012 | 08    |  466750 |
+| 2012 | 09    |  479854 |
+| 2012 | 10    | 1288807 |
+| 2012 | 11    |  374052 |
+| 2013 | 01    |    4333 |
+| 2013 | 04    |       2 |
++------+-------+---------+
+
+mysql> select concat(date_format(`timestamp`, '%b %Y Day '),
+				case when dayofmonth(`timestamp`)< 16 then '01-15' 
+					 else concat('16-',right(last_day(`timestamp`),2)) end ) as HalfMonth, count(cid) as TotalEvents 
+		from event group by HalfMonth order by year(`timestamp`), month(`timestamp`), min(dayofmonth(`timestamp`));                 
+		
++--------------------+-------------+
+| HalfMonth          | TotalEvents |
++--------------------+-------------+
+| May 2012 Day 01-15 |      219554 |
+| May 2012 Day 16-31 |      687439 |
+| Jun 2012 Day 01-15 |      297786 |
+| Jun 2012 Day 16-30 |      233928 |
+| Jul 2012 Day 01-15 |      282759 |
+| Jul 2012 Day 16-31 |      237110 |
+| Aug 2012 Day 01-15 |      195981 |
+| Aug 2012 Day 16-31 |      270769 |
+| Sep 2012 Day 01-15 |      196751 |
+| Sep 2012 Day 16-30 |      283103 |
+| Oct 2012 Day 01-15 |      219356 |
+| Oct 2012 Day 16-31 |     1069451 |
+| Nov 2012 Day 01-15 |      291615 |
+| Nov 2012 Day 16-30 |       82437 |
+| Jan 2013 Day 01-15 |        4333 |
+| Apr 2013 Day 01-15 |           2 |
++--------------------+-------------+
+SELECT INET_NTOA( ip_src ) AS  "Source IP", INET_NTOA( ip_dst ) AS  "Destination IP", sig_name AS Signature, TIMESTAMP AS TIMESTAMP
+FROM event, iphdr, signature
+WHERE iphdr.cid = event.cid
+AND signature.sig_id = event.signature
+LIMIT 10
+
+Source IP		Destination IP	Signature										Timestamp
+129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:31
+129.130.10.82	164.113.67.80	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:31
+129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:36
+129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses					2012-05-10 14:35:38
+129.130.10.133	98.129.116.171	SDF_COMBO_ALERT									2012-05-10 14:35:38
+129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses					2012-05-10 14:35:40
+129.130.10.133	98.129.116.171	SDF_COMBO_ALERT									2012-05-10 14:35:40
+129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses					2012-05-10 14:35:42
+129.130.10.133	98.129.116.171	SDF_COMBO_ALERT									2012-05-10 14:35:42
+129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:42
+
+SELECT tcp_dport, COUNT( tcp_dport ) 
+FROM  `tcphdr` 
+GROUP BY tcp_dport
+LIMIT 0 , 30
+
+tcp_dport	count(tcp_dport)
+21	4
+22	775666
+25	19437
+80	2531023
+110	205
+139	22
+143	3028
+443	196166
+465	1
+593	3
+636	2707
+928	4
+992	1
+993	82
+995	5
+1071	2
+1072	1
+1074	2
+1091	2
+1120	1
+1139	1
+1164	1
+1169	1
+1178	1
+1207	1
+1377	1
+1402	1
+1437	1
+1441	1
+1453	1
+
+udp_dport	count(udp_dport)
+25	74
+80	25442
+88	508
+10204	5
+10218	1
+11500	4
+20051	12
+24042	1

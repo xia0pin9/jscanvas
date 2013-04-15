@@ -1,9 +1,13 @@
 <?php
-$mysql_hostname = "localhost";
-$mysql_user = "snort";
-$mysql_password = "snortpass";
-$mysql_database = "snort";
-$bd = mysql_connect($mysql_hostname, $mysql_user, $mysql_password) 
-or die("Opps some thing went wrong");
-mysql_select_db($mysql_database, $bd) or die("Opps some thing went wrong");
+$hostname = "localhost";
+$user = "snort";
+$password = "snortpass";
+$database = "snort";
+//$bd = mysql_connect($hostname, $user, $password) 
+//or die("Opps some thing went wrong");
+//mysql_select_db($database, $bd) or die("Opps some thing went wrong");
+$mysqli = new mysqli($hostname, $user, $password, $database);
+if ($mysqli->connect_errno){
+    die("Mysql connect error: ".$mysqli->connect_error);
+}
 ?>

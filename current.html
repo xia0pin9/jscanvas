@@ -6,21 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>	
+	<script language="javascript" type="text/javascript" src="js/highcharts.js"></script>
+	<!--<script language="javascript" type="text/javascript" src="js/draw_chart.js"></script>-->
   </head>
   <body>
         <div class="container">
             <!-- Example row of columns -->
             <div class="row">
-                <div class="span9">			
+                <div class="span11">			
 					<div class="well">					
-						<!--<div id="intro">
-							<iframe name="content" frameborder="0" scrolling="no" style="display: none;">
-							</iframe>
-							<h2>Head Test</h2>
-							<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-							<p><a class="btn" href="#">View details &raquo;</a></p>
-						</div>-->
+						<div id="container" style="width: 800px; height: 400px; margin: 0 auto"></div>
 					</div>
                </div>
             </div>
@@ -29,5 +25,85 @@
         </div> <!-- /container -->
     
     <script src="js/bootstrap.min.js"></script>
+	<script>
+	$(function () {
+		$(document).ready(function() {
+			Highcharts.setOptions({
+				global: {
+					useUTC: false
+				}
+			});
+    
+			var chart;
+			$('#container').highcharts({
+				chart: {
+					type: 'spline',
+					animation: Highcharts.svg, // don't animate in old IE
+					marginRight: 10,
+					events: {
+						load: function() {
+    
+							// set up the updating of the chart each second
+							var series = this.series[0];
+							setInterval(function() {
+								var x = (new Date()).getTime(), // current time
+									y = Math.random();
+								series.addPoint([x, y], true, true);
+							}, 1000);
+						}
+					}
+				},
+				title: {
+					text: 'Live random data'
+				},
+				xAxis: {
+					type: 'datetime',
+					tickPixelInterval: 150
+				},
+				yAxis: {
+					title: {
+						text: 'Value'
+					},
+					plotLines: [{
+						value: 0,
+						width: 1,
+						color: '#808080'
+					}]
+				},
+				tooltip: {
+					formatter: function() {
+							return '<b>'+ this.series.name +'</b><br/>'+
+							Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+							Highcharts.numberFormat(this.y, 2);
+					}
+				},
+				legend: {
+					enabled: false
+				},
+				exporting: {
+					enabled: false
+				},
+				series: [{
+					name: 'Random data',
+					data: (function() {
+						// generate an array of random data
+						var data = [],
+							time = (new Date()).getTime(),
+							i;
+    
+						for (i = -19; i <= 0; i++) {
+							data.push({
+								x: time + i * 1000,
+								y: Math.random()
+							});
+						}
+						return data;
+					})()
+				}]
+			});
+		});
+    
+	});
+	</script>
   </body>
 </html>
