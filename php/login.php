@@ -6,16 +6,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 // username and password sent from Form 
 $myusername=addslashes($_POST['username']); 
 $mypassword=md5(addslashes($_POST['password'])); 
-
+//header("location: index.html");
 $sql="SELECT User FROM user WHERE User='$myusername' and Password='$mypassword'";
-$result=mysql_query($sql);
-$row=mysql_fetch_array($result);
-$active=$row['active'];
-$count=mysql_num_rows($result);
+$result=$mysqli->query($sql);
 
-if($count==1)
+if($result->num_rows > 0)//count==1)
 {
-//$_Se"myusername");
 $_SESSION['login_user']=$myusername;
 //echo "Locin sucessfully!";
 header("location: index.html");
@@ -25,5 +21,6 @@ else
 //echo "Your Login Name or Password is invalid";
 header("location: login.html");
 }
+$result->free();
 }
 ?>
