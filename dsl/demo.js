@@ -49,25 +49,46 @@ function trans3(args, handle){
 };
 
 function trans4(args, handle){
+	$(handle).remove();
 	var loc = document.getElementById(args[2]);
 	var formdata = eval(args[1]);
 	var title = formdata['title'];
 	var action = formdata['action'];
 	var method = formdata['method'];
 	var inputs = formdata['input'];
-	var form = $('<form class="form-horizontal">' +
-		      '<fieldset id="fbody"><div id="legend"></div>' + 
-		      '</fieldset></form>');
+	var form = $('<form class="form-horizontal"></form>');
+		    /*  '<fieldset id="fbody"><div id="legend"></div>' + 
+		      '</fieldset></form>');*/
 	$(form).attr('action',action);
 	$(form).attr('method',method);
 	$(loc).append(form);
+	var fieldset = $('<fieldset id="fbody"><div id="legend"></div></fieldset>');
+	$(form).append(fieldset);
 	//Set form title
 	var lgcontent = $('<legend class=""></legend>').text(title);
 	$(form).find('#legend').append(lgcontent);
-
+	
 	//Process form inputs
 	for (var i=0; i<inputs.length;i++) {
 	    var inputid = "input"+i;
+	    var cgroup = $('<div class="control-group"></div>');
+	    $(cgroup).attr('id', 'cgroup'+i);
+	    $(form).find('#fbody').append(cgroup);
+	    var controls = $('<div class="controls"></div>');
+	    $(controls).attr('id', 'control'+i);
+	    $(form).find('#cgroup'+i).append(controls);
+	    if (inputs[i][0] == "button") {
+		var button = $('<button class="btn btn-success"></button>').text(inputs[i][1]);
+		$(form).find('#control'+i).append(button);
+	    }else{
+		var label = $('<label class="control-label"></label>').text(inputs[i][1]);
+		$(label).attr('for', inputs[i][0]);
+		var input = $('<input type="text" placeholder="" class="input-xlarge">');	
+		$(input).attr('id', inputs[i][0]);
+		$(input).attr('name', inputs[i][0]);
+		$(form).find('#cgroup'+i).prepend(label);
+		$(form).find('#control'+i).append(input);
+	    }
 	}
 };
 

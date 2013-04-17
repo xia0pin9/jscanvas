@@ -8,7 +8,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script class="demo" type="text/javascript">
-	var originaldata;
+	var mytabledata;
 	$.ajax({
 	    url:'query.php',
 	    cache: false,
@@ -17,12 +17,10 @@
 	    contentType: "application/json; charset=utf-8",
 	    type: "GET",
 	    success: function(data) {
-		originaldata = data;
-		//alert(originaldata);
+		mytabledata = data;
 	}})
-	//alert(originaldata);
 	</script>
-	<p id="demo">@CREATE TABLE WITH originaldata AT #well;</p>
+	<p>@CREATE TABLE WITH mytabledata AT #well;</p>
 	<script src="demo.js"></script>
   </head>
   <body>
