@@ -1,5 +1,8 @@
 <?php
 //set the JSON header
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header("Content-type: text/json");
 
 include("config.php");
@@ -28,11 +31,16 @@ switch($mode) {
 	echo json_encode($result);
 	break;
     case "current":
-    	$i = $_GET['i'];
-	$query = "select count(sid) from event where cid > ".$i." and cid < ".(int($i)+10);
+    	$time = $_GET['time'];
+	$query = "SELECT COUNT(sid) FROM event WHERE TIMESTAMP = DATE_SUB( FROM_UNIXTIME('$time'/1000 ) , INTERVAL 6 MONTH )";
     	$result = $mysqli->query($query);
-	echo $result->fetc_assoc();
-	$result->free();
+	if ($result) {
+	    $row = mysqli_fetch_row($result);
+	    echo $row[0];
+	}else{
+	    echo $time;
+	}
+	
 	break;
     case "port":
     	$tcpquery = "select tcp_dport,count(tcp_dport) from tcphdr group by tcp_dport";	
@@ -44,7 +52,7 @@ switch($mode) {
 	$thead = array("Source IP", "Destination IP", "Signature Info", "Timestamp");
 	$tbody = array();
 	$result = $mysqli->query($query);
-	if ($result->num_rows > 0)
+	if ($result)//->num_rows > 0)
 	{    
 	    while($row = $result->fetch_assoc()) {
 		array_push($tbody, array($row['ipsrc'],$row['ipdst'],$row['sig_name'],$row['timestamp']));
@@ -56,25 +64,5 @@ switch($mode) {
 }
 
 $mysqli->close();
-/*$i = $_GET['i'];
-$sql_one = "SELECT `DataValue` FROM `timedataflow` where TimeDataFlowID =".$i;
-$sql_two = "SELECT `DataValue` FROM `timedataflow` where TimeDataFlowID =".$i;
-
-$result_one = $conn->query($sql_one);
-$result_two = $conn->query($sql_one);
-
- if the $result contains at least one row
-if ($result_one->num_rows > 0) {
-  // output data of each row from $result
-  while(($row_one = $result_one->fetch_assoc()) and ($row_two = $result_two->fetch_assoc())) {
-   $data_one = $row_one['DataValue']+4;
-   $data_two = $row_one['DataValue'];
-  }
- }
-else {
-  echo 'none';
-}
-$ret = array((time()*1000), $data_one, $data_two);
-echo json_encode($ret); */
 
 ?>

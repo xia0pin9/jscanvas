@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <title>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>	
+	<script language="javascript" type="text/javascript" src="js/highcharts.js"></script>
+	<script>	
+	function getValue() {
+		var ytemp;
+		$.ajax({
+			url:'query.php',
+			async: false,
+			data:'mode=current&time='+getTime(),
+			contentType: "application/json; charset=utf-8",
+			success: function(data) {
+				ytemp = data;
+			}
+		})
+		return ytemp;
+	}
+	function getTime() {	return (new Date()).getTime();	}
+	var xvalue = "getTime()";
+	var yvalue = "getValue()";
+	var opts = {
+		"charttitle" : "Snort Realtime Events Count",
+		"xtitle" : "Current Date Time",
+		"ytitle" : "Events Count",
+		"dataname" : "Realtime Data",
+		"pointnum" : 20,
+		"updatecycle" : 1, //per seconds
+	}
+	</script>
+	<p>@DRAW SPLINECHART WITH OPTIONS opts FROM DATA xvalue, yvalue AT #well;</p>
+	<script src="demo.js"></script>
+  </head>
+  <body>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="span11">			
+					<div class="well">					
+						<div id="well" style="width: 800px; height: 400px; margin: 0 auto"></div>
+					</div>
+               </div>
+            </div>
+
+        </div> <!-- /container -->
+	<script src="js/vendor/bootstrap.min.js"></script>
+  </body>
+</html>
