@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Snort Real Time Events Tracking Dashboard</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+        <script>
+            window.onload = function(){
+				$.get("lock.php", function(data) {
+					if (data.toString() == "error")
+					{   
+						window.location.href = "login.html"; 
+					}
+					else
+					{    
+						$(".login_user").text(data.toString());
+					}
+				});
+			}
+        </script>
+    </head>
+    <body>
+        <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="" style="font-size: 24pt">Snort Real Time Events Tracking System</a>
+                    <div class="nav-collapse collapse">
+						<ul class="nav pull-right">
+							<li><p class="nav navbar-text">Logged in as: 
+									<span class="login_user">
+									</span>
+								</p>
+							</li>
+							<li>
+								<form class="navbar-form" action="logout.php">
+									<button type="submit" class="btn btn-primary">Logout</button>
+								</form>
+							</li>
+						</ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+		</div>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="span3">
+					<div class="well sidebar-nav">
+						<ul class="nav nav-tabs nav-stacked">
+							<li><a target="content" href="intro.html">Introduction</a></li>
+							<li><a target="content" href="total.html">Historical Events Monthly Count</a></li> <!--static(event)-->
+							<li><a target="content" href="half.html">Historical Events Half-Monthly Count</a></li>
+							<li><a target="content" href="port.html">Events Port Statistics</a></li> <!--pie(ports)-->
+							<li><a target="content" href="latest.html">Lastest 10 events</a></li> <!--table(tcp-10)-->
+							<li><a target="content" href="current.html">Current Dynamic Events</a></li> <!--dynamic(event)-->
+						</ul>
+					</div><!--/.well -->
+                </div>
+                <iframe class="span9" name="content" frameborder="0" scrolling="no" style="min-height:480px" src="intro.html">
+				</iframe>
+            </div>
+            <hr>
+            <footer>
+                &copy; Copyright  by Yuping Li &amp; Xiaolong Wang
+            </footer>
+        </div> <!-- /container -->
+        <script src="js/vendor/bootstrap.min.js"></script>
+    </body>
+</html>

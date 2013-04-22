@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html  lang="en">
+    <head>
+    <title>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+	<script language="javascript" type="text/javascript" src="js/highcharts.js"></script>
+	<script class="demo" type="text/javascript">
+	var originaldata;
+	$.ajax({
+	    url:'http://localhost/ajax/total_query.php',
+	    cache: false,
+	    async: false,
+	    data:'mode=total',
+	    contentType: "application/json; charset=utf-8",
+	    type: "GET",
+	    success: function(data) {
+		originaldata = data;
+		//alert(originaldata);
+	}});
+	//alert(originaldata);
+	var totaldata = {
+		    "title":"Historical Events Statistic",
+		    "subtitle":"sum for half-month based data",
+		    "ytitle":"numbers",
+			"series":"event"
+		};
+	</script>
+	<p id="demo">@DRAW LINECHART WITH OPTIONS totaldata FROM DATA originaldata AT #well;</p>
+	<script src="demo.js"></script>
+  </head>
+  <body>
+<div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+				<div class="span11">
+						
+						<div id="well" style="width: 800px; height: 400px; margin: 0 auto"></div>
+					
+				</div>
+            </div>
+            <hr>		
+    <script src="js/vendor/bootstrap.min.js"></script>
+  </body>
+</html>
