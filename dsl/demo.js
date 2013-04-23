@@ -1,23 +1,117 @@
-var pattern1 = /@PRINT\s(\w+)\s(\w+)/gm;
-var pattern2 = /@DRAW\s(\w+)/gm;
+var pattern1 = /@DRAW\sPIECHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\sAT\s\#(\w+)/gm;
+var pattern2 = /@DRAW\sCOLUMNCHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern3 = /@CREATE\sTABLE\sWITH\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern4 = /@CREATE\sFORM\sWITH\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern5 = /@DRAW\sSPLINECHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\,\s(\w+)\sAT\s\#(\w+)/gm;
-var pattern6 = /@SHOW\s(\w+)\s(\w+)/g;
+var pattern6 = /@DRAW\sLINECHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\sAT\s\#(\w+)/gm;
 
+
+//draw pie_chart 
 function trans1(args, handle){
-	//alert(args);
-	// Create a new node;
-	var newnode = $('<p>I am just for test.</p>');
-	//else alert($(this)+"no"+handle);
-	//$(handle).after(newnode);
-	//$(handle).parent().find('#demo').remove();
+	$(handle).remove();
+	var loc = document.getElementById(args[3]);
+	chartdata = eval(args[2]);
+	var options = eval(args[1]);
+	var title = options["title"];
+	var series = options["series"];
+	
+	$(loc).highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: title
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                     dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: series,
+                data: chartdata
+            }]
+        });
 };
 
+//draw column_chart
 function trans2(args, handle){
+	$(handle).remove();
+	var loc = document.getElementById(args[3]);
+	chartdata = eval(args[2]);
+	var options = eval(args[1]);
+	var title = options["title"];
+	var subtitle = options["subtitle"];
+	var ytitle = options["ytitle"];
+	var series = options["series"];
+	
+	$(loc).highcharts({
+            chart: {
+                type: 'column',
+				zoomType: 'xy'
+            },
+            title: {
+                text: title
+            },
+            subtitle: {
+                text: subtitle
+            },
+            xAxis: {
+                categories: chartdata[0],
+            },
+            yAxis: {
+                min: 0,
+				labels: {
+                    format: '{value}',
+                    style: {
+                        color: '#89A54E'
+                    }
+                },
+                title: {
+                    text: ytitle
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: series,
+                data: chartdata[1]
+    
+            }]
+        });
 	
 };
 
+//create table
 function trans3(args, handle){
 	var loc = document.getElementById(args[2]);
 	var tabledata = eval(args[1]);
@@ -48,6 +142,7 @@ function trans3(args, handle){
 	$(handle).remove();
 };
 
+//create form
 function trans4(args, handle){
 	$(handle).remove();
 	var loc = document.getElementById(args[2]);
@@ -77,20 +172,26 @@ function trans4(args, handle){
 	    $(controls).attr('id', 'control'+i);
 	    $(form).find('#cgroup'+i).append(controls);
 	    if (inputs[i][0] == "button") {
-			var button = $('<button class="btn btn-success"></button>').text(input[i][1]);
+			var button = $('<button class="btn btn-success"></button>').text(inputs[i][1]);
 			$(form).find('#control'+i).append(button);
 	    }else{
-			var label = $('<label class="control-label"></label>').text(input[i][1]);
-			$(label).attr('for', input[i][0]);
-			var input = $('<input type="text" placeholder="" class="input-xlarge">');	
-			$(input).attr('id', input[i][0]);
-			$(input).attr('name', input[i][0]);
+			var label = $('<label class="control-label"></label>').text(inputs[i][1]);
+			$(label).attr('for', inputs[i][0]);
+			var input = $('<input placeholder="" class="input-xlarge">');	
+			$(input).attr('id', inputs[i][0]);
+			$(input).attr('name', inputs[i][0]);
+			if (inputs[i][0] == "password"){
+				$(input).attr('type', inputs[i][0]);
+			}else{
+				$(input).attr('type', 'text');
+			}
 			$(form).find('#cgroup'+i).prepend(label);
 			$(form).find('#control'+i).append(input);
 	    }
 	}
 };
 
+//draw dynamic_chart
 function trans5(args, handle){
         $(handle).remove();
         var options = eval(args[1]);
@@ -107,19 +208,62 @@ function trans5(args, handle){
         drawChart(loc, cycle, ctitle, xtitle, ytitle, dname, point, x, y);
 };
 
+//draw line_chart
 function trans6(args, handle){
 	$(handle).remove();
+	var loc = document.getElementById(args[3]);
+	chartdata = eval(args[2]);
 	var options = eval(args[1]);
-	var ctitle = options['charttitle'];
-	var xtitle = options['xtitle'];
-	var ytitle = options['ytitle'];
-	var dname  = options['dataname'];
-	var point  = options['pointnum'];
-	var cycle  = options['updatecycle'];
-	var loc = document.getElementById(args[4]);
-	var x = args[2];
-	var y = args[3];
-	drawChart(loc, cycle, ctitle, xtitle, ytitle, dname, point, x, y);
+	var title = options["title"];
+	var subtitle = options["subtitle"];
+	var ytitle = options["ytitle"];
+	var series = options["series"];
+$(loc).highcharts({
+            chart: {
+                type: 'line',
+				zoomType: 'xy'
+            },
+            title: {
+                text: title
+            },
+            subtitle: {
+                text: subtitle
+            },
+            xAxis: {
+                categories: chartdata[0],
+            },
+            yAxis: {
+                min: 0,
+				labels: {
+                    format: '{value}',
+                    style: {
+                        color: '#89A54E'
+                    }
+                },
+                title: {
+                    text: ytitle
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: series,
+                data: chartdata[1]
+    
+            }]
+        });
 };
 
 var macrotable = [
@@ -128,7 +272,7 @@ var macrotable = [
 	[pattern3, trans3], 
 	[pattern4, trans4], 
 	[pattern5, trans5],
-	[pattern5, trans6]
+	[pattern6, trans6]
 ];
 
 function transform_dsl() {
@@ -192,7 +336,7 @@ function drawChart(loc, cycle, ctitle, xtitle, ytitle, dataname, pointnum, xvalu
 			data: (function() {
 				//generate an array of default data, initialize the graph
 				var data = [], i;    
-				for (i = -(pointnum); i < 0; i++) {
+				for (i = -(pointnum-1); i <= 0; i++) {
 					data.push({
 						x: eval(xvalue) + i * 1000,
 						y: 0

@@ -11,10 +11,10 @@
 	<script class="demo" type="text/javascript">
 	var originaldata;
 	$.ajax({
-	    url:'http://localhost/ajax/total_query.php',
+	    url:'query.php',
 	    cache: false,
 	    async: false,
-	    data:'mode=total',
+	    data:'mode=half',
 	    contentType: "application/json; charset=utf-8",
 	    type: "GET",
 	    success: function(data) {
@@ -25,8 +25,8 @@
 	var totaldata = {
 		    "title":"Historical Events Statistic",
 		    "subtitle":"sum for half-month based data",
-		    "ytitle":"numbers",
-			"series":"event"
+		    "ytitle":"sum value",
+		    "series":"events count"
 		};
 	</script>
 	<p id="demo">@DRAW LINECHART WITH OPTIONS totaldata FROM DATA originaldata AT #well;</p>
@@ -42,7 +42,6 @@
 					
 				</div>
             </div>
-            <hr>		
     <script src="js/vendor/bootstrap.min.js"></script>
   </body>
 </html>

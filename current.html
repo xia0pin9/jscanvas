@@ -26,6 +26,30 @@
     
     <script src="js/vendor/bootstrap.min.js"></script>
 	<script>
+	function getValue() {
+		var ytemp;
+		$.ajax({
+			url:'query.php',
+			async: false,
+			data:'mode=current&time='+getTime(),
+			contentType: "application/json; charset=utf-8",
+			success: function(data) {
+				ytemp = data;
+			}
+		})
+		return ytemp;
+	}
+	function getTime() {	return (new Date()).getTime();	}
+	var xvalue = "getTime()";
+	var yvalue = "getValue()";
+	var opts = {
+		"charttitle" : "Snort Realtime Events Count",
+		"xtitle" : "Current Date Time",
+		"ytitle" : "Events Count",
+		"dataname" : "Realtime Data",
+		"pointnum" : 20,
+		"updatecycle" : 1, //per seconds
+	}
 	$(function () {
 		$(document).ready(function() {
 			Highcharts.setOptions({
@@ -46,8 +70,8 @@
 							// set up the updating of the chart each second
 							var series = this.series[0];
 							setInterval(function() {
-								var x = (new Date()).getTime(), // current time
-									y = Math.random();
+								var x = eval(xvalue), // current time
+								    y = eval(yvalue);
 								series.addPoint([x, y], true, true);
 							}, 1000);
 						}
@@ -88,13 +112,12 @@
 					data: (function() {
 						// generate an array of random data
 						var data = [],
-							time = (new Date()).getTime(),
 							i;
     
 						for (i = -19; i <= 0; i++) {
 							data.push({
-								x: time + i * 1000,
-								y: Math.random()
+								x: eval(xvalue) + i * 1000,
+								y: 0
 							});
 						}
 						return data;
