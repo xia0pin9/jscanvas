@@ -19,92 +19,22 @@
 					</div>
 				</div>
             </div>
-            <hr>
 
     </div> <!-- /container -->
-	<!--<script type="text/javascript">
-	$(function () {
-		$(document).ready(function() {
-			Highcharts.setOptions({
-				global: {
-					useUTC: false
-				}
-			});
-    
-			var chart;
-			$('#container').highcharts({
-				chart: {
-					type: 'spline',
-					animation: Highcharts.svg, // don't animate in old IE
-					marginRight: 10,
-					events: {
-						load: function() {
-    
-							// set up the updating of the chart each second
-							var series = this.series[0];
-							setInterval(function() {
-								var x = (new Date()).getTime(), // current time
-									y = Math.random();
-								series.addPoint([x, y], true, true);
-							}, 1000);
-						}
-					}
-				},
-				title: {
-					text: 'Live random data'
-				},
-				xAxis: {
-					type: 'datetime',
-					tickPixelInterval: 150
-				},
-				yAxis: {
-					title: {
-						text: 'Value'
-					},
-					plotLines: [{
-						value: 0,
-						width: 1,
-						color: '#808080'
-					}]
-				},
-				tooltip: {
-					formatter: function() {
-							return '<b>'+ this.series.name +'</b><br/>'+
-							Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
-							Highcharts.numberFormat(this.y, 2);
-					}
-				},
-				legend: {
-					enabled: false
-				},
-				exporting: {
-					enabled: false
-				},
-				series: [{
-					name: 'Random data',
-					data: (function() {
-						// generate an array of random data
-						var data = [],
-							time = (new Date()).getTime(),
-							i;
-    
-						for (i = -19; i <= 0; i++) {
-							data.push({
-								x: time + i * 1000,
-								y: Math.random()
-							});
-						}
-						return data;
-					})()
-				}]
-			});
-		});
-    
-	});
-	</script>-->
 	<script>
-	
-    
+	var originaldata;
+	$.ajax({
+	    url:'query.php',
+	    cache: false,
+	    async: false,
+	    data:'mode=total',
+	    contentType: "application/json; charset=utf-8",
+	    type: "GET",
+	    success: function(data) {
+		originaldata = data;
+		//alert(originaldata);
+	}});
+
     $(document).ready(function () {
     	
     	  $('#container').highcharts({
@@ -113,26 +43,13 @@
 				zoomType: 'xy'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: "Historical Events Statistic",
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: "sum for month based data",
             },
             xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ]
+                categories: originaldata[0],
             },
             yAxis: {
                 min: 0,
@@ -143,7 +60,7 @@
                     }
                 },
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: "sum value",
                 }
             },
             tooltip: {
@@ -161,23 +78,12 @@
                 }
             },
             series: [{
-                name: 'Tokyo',
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
-    
-            }, {
-                name: 'New York',
-                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
-    
-            }, {
-                name: 'London',
-                data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
-    
-            }, {
-                name: 'Berlin',
-                data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+                name: "events count",
+                data: originaldata[1]
     
             }]
         });
+	
     });
 
 	</script>

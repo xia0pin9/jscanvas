@@ -20,7 +20,6 @@
 					</div>
                </div>
             </div>
-            <hr>
 
         </div> <!-- /container -->
     
@@ -40,16 +39,7 @@
 		return ytemp;
 	}
 	function getTime() {	return (new Date()).getTime();	}
-	var xvalue = "getTime()";
-	var yvalue = "getValue()";
-	var opts = {
-		"charttitle" : "Snort Realtime Events Count",
-		"xtitle" : "Current Date Time",
-		"ytitle" : "Events Count",
-		"dataname" : "Realtime Data",
-		"pointnum" : 20,
-		"updatecycle" : 1, //per seconds
-	}
+	
 	$(function () {
 		$(document).ready(function() {
 			Highcharts.setOptions({
@@ -70,23 +60,25 @@
 							// set up the updating of the chart each second
 							var series = this.series[0];
 							setInterval(function() {
-								var x = eval(xvalue), // current time
-								    y = eval(yvalue);
+								var x = (new Date()).getTime(), // current time
+								    y = getValue();
 								series.addPoint([x, y], true, true);
 							}, 1000);
 						}
 					}
 				},
 				title: {
-					text: 'Live random data'
+					text: 'Snort Realtime Events Count'
 				},
 				xAxis: {
 					type: 'datetime',
-					tickPixelInterval: 150
+					title: {
+						text: 'Current Date Time'
+					}
 				},
 				yAxis: {
 					title: {
-						text: 'Value'
+						text: 'Events Count'
 					},
 					plotLines: [{
 						value: 0,
@@ -108,15 +100,16 @@
 					enabled: false
 				},
 				series: [{
-					name: 'Random data',
+					name: 'Realtime Data',
 					data: (function() {
 						// generate an array of random data
 						var data = [],
-							i;
+						    time = (new Date()).getTime(),
+						    i;
     
 						for (i = -19; i <= 0; i++) {
 							data.push({
-								x: eval(xvalue) + i * 1000,
+								x: time + i * 1000,
 								y: 0
 							});
 						}

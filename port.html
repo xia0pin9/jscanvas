@@ -8,7 +8,56 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script language="javascript" type="text/javascript" src="js/highcharts.js"></script>
-	<script language="javascript" type="text/javascript" src="js/pie_chart.js"></script>
+	<script language="javascript">
+	var originaldata;
+	$.ajax({
+	    url:'query.php',
+	    cache: false,
+	    async: false,
+	    data:'mode=port',
+	    contentType: "application/json; charset=utf-8",
+	    type: "GET",
+	    success: function(data) {
+		originaldata = data;
+		//alert(originaldata);
+	}});
+	$(document).ready(function(){
+	$('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: "Ports Statistic",
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                     dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                        }
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'port',
+                data: originaldata
+            }]
+        });
+	});
+	</script>
   </head>
   <body>
         <div class="container">
@@ -25,7 +74,6 @@
 					</div>
                </div>
             </div>
-            <hr>
 
         </div> <!-- /container -->
     
