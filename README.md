@@ -1,4 +1,4 @@
-netman
+jscanvas
 ======
 
-Network Management DSL
+Front end web development DSL
