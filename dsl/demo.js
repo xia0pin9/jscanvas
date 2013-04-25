@@ -1,3 +1,4 @@
+// Macro pattern definition
 var pattern1 = /@DRAW\sPIECHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern2 = /@DRAW\sCOLUMNCHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern3 = /@CREATE\sTABLE\sWITH\s(\w+)\sAT\s\#(\w+)/gm;
@@ -5,10 +6,8 @@ var pattern4 = /@CREATE\sFORM\sWITH\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern5 = /@DRAW\sSPLINECHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\,\s(\w+)\sAT\s\#(\w+)/gm;
 var pattern6 = /@DRAW\sLINECHART\sWITH\sOPTIONS\s(\w+)\sFROM\sDATA\s(\w+)\sAT\s\#(\w+)/gm;
 
-
-//draw pie_chart 
-function trans1(args, handle){
-	$(handle).remove();
+// Draw pie_chart 
+function trans1(args){
 	var loc = document.getElementById(args[3]);
 	chartdata = eval(args[2]);
 	var options = eval(args[1]);
@@ -51,9 +50,8 @@ function trans1(args, handle){
         });
 };
 
-//draw column_chart
-function trans2(args, handle){
-	$(handle).remove();
+// Draw column_chart
+function trans2(args){
 	var loc = document.getElementById(args[3]);
 	chartdata = eval(args[2]);
 	var options = eval(args[1]);
@@ -111,8 +109,8 @@ function trans2(args, handle){
 	
 };
 
-//create table
-function trans3(args, handle){
+// Create table
+function trans3(args){
 	var loc = document.getElementById(args[2]);
 	var tabledata = eval(args[1]);
 	var theaddata = tabledata[0];
@@ -139,12 +137,10 @@ function trans3(args, handle){
 		$(table).find('#'+id).append($(element));
 	    }
 	}
-	$(handle).remove();
 };
 
-//create form
-function trans4(args, handle){
-	$(handle).remove();
+// Create form
+function trans4(args){
 	var loc = document.getElementById(args[2]);
 	var formdata = eval(args[1]);
 	var title = formdata['title'];
@@ -191,9 +187,8 @@ function trans4(args, handle){
 	}
 };
 
-//draw dynamic_chart
-function trans5(args, handle){
-        $(handle).remove();
+// Draw dynamic_chart
+function trans5(args){
         var options = eval(args[1]);
         var ctitle = options['charttitle'];
         var xtitle = options['xtitle'];
@@ -208,9 +203,8 @@ function trans5(args, handle){
         drawChart(loc, cycle, ctitle, xtitle, ytitle, dname, point, x, y);
 };
 
-//draw line_chart
-function trans6(args, handle){
-	$(handle).remove();
+// Draw line_chart
+function trans6(args){
 	var loc = document.getElementById(args[3]);
 	chartdata = eval(args[2]);
 	var options = eval(args[1]);
@@ -218,7 +212,7 @@ function trans6(args, handle){
 	var subtitle = options["subtitle"];
 	var ytitle = options["ytitle"];
 	var series = options["series"];
-$(loc).highcharts({
+	$(loc).highcharts({
             chart: {
                 type: 'line',
 				zoomType: 'xy'
@@ -266,33 +260,7 @@ $(loc).highcharts({
         });
 };
 
-var macrotable = [
-	[pattern1, trans1], 
-	[pattern2, trans2], 
-	[pattern3, trans3], 
-	[pattern4, trans4], 
-	[pattern5, trans5],
-	[pattern6, trans6]
-];
-
-function transform_dsl() {
-	var scripts = document.getElementsByTagName("p");
-	for (var i=0; i < scripts.length; i ++ ) {
-		var element = scripts[i];
-		for (var j=0; j < macrotable.length; j ++)
-		{	
-			var re = macrotable[j][0];
-			var results = re.exec(element.textContent);
-			if (results == null)
-			{
-				continue;
-			}
-			var fun = macrotable[j][1];
-			fun(results,element);
-		}
-	}
-}
-
+// Concrete function call for splinechart with dynamical content
 function drawChart(loc, cycle, ctitle, xtitle, ytitle, dataname, pointnum, xvalue, yvalue){
 	Highcharts.setOptions({global: {useUTC: false}});
     
@@ -348,10 +316,45 @@ function drawChart(loc, cycle, ctitle, xtitle, ytitle, dataname, pointnum, xvalu
 	});
 }
 
-/*function outerHTML(node){
-     return node.outerHTML || new XMLSerializer().serializeToString(node);
-}*/
+// Macro processor control framework starts
+var macrotable = [
+	[pattern1, trans1], 
+	[pattern2, trans2], 
+	[pattern3, trans3], 
+	[pattern4, trans4], 
+	[pattern5, trans5],
+	[pattern6, trans6]
+];
+
+function transform_dsl() {
+	// Specified by JSCanvas, all macro calls must be put within a <p> tag
+	var scripts = document.getElementsByTagName("p"); 
+	// Replace each macro pattern within web page if exists
+	for (var i=0; i < scripts.length; i ++ ) {
+		var element = scripts[i];
+		// Check if current <p> html element is a macro call
+		for (var j=0; j < macrotable.length; j ++)
+		{	
+			// Determine the specific macro call within the <p> tag
+			var re = macrotable[j][0];
+			// Pattern matching via regular expression
+			var results = re.exec(element.textContent);
+			if (results == null)
+			{
+				continue; // normal <p> tag
+			}
+			// Hide the macro call element
+			$(element).remove();
+			// Get the corresponding macro translation handle
+			var fun = macrotable[j][1];
+			// Call the translation function with matched string
+			fun(results);
+		}
+	}
+}
 
 $(document).ready(function(){
 	transform_dsl();
 });
+// Macro processor control framework ends
+
