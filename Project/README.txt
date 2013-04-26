@@ -1,25 +1,24 @@
 JSCanvas
 ========
 
-INTRODUCTION:
+1. INTRODUCTION:
 
-JSCanvas is a bottom-up front-end web based data display domain specific language. JSCanvas is built upon HTML, Javascript and Highcharts 3.0 jQuery charting library aim at supporting an easy-to-use clean code data display language.
+   JSCanvas is a bottom-up domain specific language, which is specialized for the domain of web based data display. JSCanvas is mainly built upon jQuery, Highcharts, and Bootstrap libraries, aim at supporting an easy-to-use clean code data display language.
+   
 
-DEMO:
+2. DOCUMENTATION:
 
-DOCUMENTATION:
+   JSCanvas includes six components. There are FORM, TABLE, LINECHART, COLUMNCHART, PIECHART and SPLINECHART. In order to apply this DSL, first we need to include jQuery, Bootstrap, and Highcharts library in the page, which is put under 'js' folder. And of course include 'jscanvas.js' as well. Bootstrap provides an nice front-end web developing framework, we can present wonderful bootstrap-style graphical components through calling of particular class name.
 
-JSCanvas includes six components. There are FORM, TABLE, LINECHART, COLUMNCHART, PIECHART and SPLINECHART. In order to apply this DSL, first we need to include jQuery, Bootstrap, and Highcharts library in the page, which is included in 'js' folder. And includes 'JSCanvas.js' as well. 
+   The language should be used in HTML page and put between '<p></p>' and start with '@'.
 
-The language should be used in HTML page and put between '<p></p>' and start with '@'.
-
-(1) With JSCanvas, we can create a table or form using keyword 'CREATE' the grammar is:
+  (1) With JSCanvas, we can create a table or form using keyword 'CREATE' the grammar is:
 		
-	CREATE (TABLE | FORM) WITH 'data' AT '#container';
+		CREATE (TABLE | FORM) WITH 'data' AT '#container';
 
-'data' is an array veriable that specifies the graphical content you want to present. '#container' is the DOM element with id of "container" in HTML that specifies the location where you want to create this table or from.
+   'data' is an array veriable that specifies the graphical content you want to present. '#container' is the DOM element with id of "container" in HTML that specifies the location where you want to create this table or from.
 
-For example, if we want create a table, we can simply create a '<div id = "container">' at the desired location and define an array of data specifying what kind of information we want to present:
+   For example, if we want create a table, we can simply create a '<div id = "container">' at the desired location and define an array of data specifying what kind of information we want to present:
 
 	data = [
 		thead =>
@@ -40,9 +39,9 @@ For example, if we want create a table, we can simply create a '<div id = "conta
 
 	<p>@CREATE TABLE WITH data AT #container;</p>
 
-Then JSCanvas will simply create a table for us!
+   Then JSCanvas will simply create a table for us!
 
-Also, we can create a from without much of effort, form need a dictionary variable, specifies "title", "action", "method", "input"  for example we can crate a form like this:
+   Also, we can create a from without much of effort, form need a dictionary variable, specifies "title", "action", "method", "input"  for example we can crate a form like this:
 
 	var data = {
 		"title":"Login",	//form name
@@ -53,11 +52,11 @@ Also, we can create a from without much of effort, form need a dictionary variab
  
 	<p>@CREATE FROM WITH data AT #container;</p>
 	
-(2)	With JSCanvas, we can draw different charts by using keyword 'DRAW' the grammar is:
+   (2)	With JSCanvas, we can draw different charts by using keyword 'DRAW' the grammar is:
 
 	DRAW (LINECHART | COLUMNCHART | PIECHART | SPINECHART) WITH OPTIONS 'opt' FROM DATA 'data' AT '#container';
 	
-For line chart and column chart the 'data' is an array variable and 'opt' is a dictionary with fields: "title", "subtitle", "ytitle", and "series", for example:
+    For line chart and column chart the 'data' is an array variable and 'opt' is a dictionary with fields: "title", "subtitle", "ytitle", and "series", for example:
 
 	data = [219554, 687439, 297786, 233928, 282759, 237110, 195981, 270769, 196751, 283103, 219356, 1069451, 291615, 82437];
 	var opt = {
@@ -69,7 +68,7 @@ For line chart and column chart the 'data' is an array variable and 'opt' is a d
 		
 	<p>@DRAW LINECHART WITH OPTION opt FORM DATA data AT #container;</p>
 	
-For pie chart the data requries a two-dimension array for example:
+    For pie chart the data requries a two-dimension array for example:
 
 	data = [
         	['Firefox',   45.0],	//name, precentage
@@ -87,7 +86,7 @@ For pie chart the data requries a two-dimension array for example:
 	<p>@DRAW PIECHART WITH OPTIONS option FROM DATA data AT #well;</p>
 	
 	
-Finally SPINECHART is a keyword for drawing dynamic chart, for dynamic chart, it is a little bit special, first we need two data arguments one for x-axis, and one for y-axis and each variable only contain one value at a time instead of an array. For example:
+    Finally SPINECHART is a keyword for drawing dynamic chart, for dynamic chart, it is a little bit special, first we need two data arguments one for x-axis, and one for y-axis and each variable only contain one value at a time instead of an array. For example:
 
 	var opts = {
 		"charttitle" : "title name",	//name of chart
@@ -102,7 +101,7 @@ Finally SPINECHART is a keyword for drawing dynamic chart, for dynamic chart, it
 	
 	<p>@DRAW SPLINECHART WITH OPTIONS opts FROM DATA xvalue, yvalue AT #well;</p>
 	
-On the other hand, we can also integrate with AJAX and update data every certain amount of time(according to the "updatecycle" that user set) from server, for example: 
+    On the other hand, we can also integrate with AJAX and update data every certain amount of time(according to the "updatecycle" that user set) from server, for example: 
 
 	function getValue() {
 		var ytemp;
@@ -134,7 +133,11 @@ On the other hand, we can also integrate with AJAX and update data every certain
 	
 	<p>@DRAW SPLINECHART WITH OPTIONS opts FROM DATA xvalue, yvalue AT #well;</p>
 	
-With this setup, the chart will query point per second and add it on chart.
+    With this setup, the chart will query point per second and add it on chart.
 
 	
+3. DEMO:
 
+   Currently, we have implemented six macro components. Each component has a seperate usage example. They are put in login.html, latest.html, total.html, half.html, port.html, current.html, corresponding with FORM, TABLE, LINECHART, COLUMNCHART, PIECHART, SPLINECHART macro components respectively. Accoring to the needs and situations, different macro patterns may need different data specification.
+
+   The Demo_DSL is 
