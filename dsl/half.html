@@ -9,7 +9,7 @@
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 	<script language="javascript" type="text/javascript" src="js/highcharts.js"></script>
 	<script class="demo" type="text/javascript">
-	var originaldata;
+	var mydata;
 	$.ajax({
 	    url:'query.php',
 	    cache: false,
@@ -18,19 +18,17 @@
 	    contentType: "application/json; charset=utf-8",
 	    type: "GET",
 	    success: function(data) {
-		originaldata = data;
-		//alert(originaldata);
+		mydata = data;
 	}});
-	//alert(originaldata);
-	var totaldata = {
+	var opt = {
 		    "title":"Historical Events Statistic",
 		    "subtitle":"sum for half-month based data",
 		    "ytitle":"sum value",
 		    "series":"events count"
 		};
 	</script>
-	<p id="demo">@DRAW LINECHART WITH OPTIONS totaldata FROM DATA originaldata AT #well;</p>
-	<script src="JSCanvas.js"></script>
+	<p id="demo">@DRAW LINECHART WITH OPTIONS opt FROM DATA mydata AT #well;</p>
+	<script src="jscanvas.js"></script>
   </head>
   <body>
 <div class="container">

@@ -137,7 +137,13 @@ JSCanvas
 
 	
 3. DEMO:
-
-   Currently, we have implemented six macro components. Each component has a seperate usage example. They are put in login.html, latest.html, total.html, half.html, port.html, current.html, corresponding with FORM, TABLE, LINECHART, COLUMNCHART, PIECHART, SPLINECHART macro components respectively. Accoring to the needs and situations, different macro patterns may need different data specification.
-
-   The Demo_DSL is 
+	
+   With this language we developed a sample application, Snort Real Time Events Tracking System. Basically it is a website that used for analyzing Snort database and presenting statistics of networking events. In our system we show five different statistics diagrams and tables that network administrator most concerned about and support a handy, user-friendly web interface for accessing and analyzing Snort data.
+   
+   With this sample application we intend to show how easy and powerful that you can create with our language to present data in a beautiful way. 
+   
+   The file structure is described below:
+   
+   The source file of JSCanvas is included in "Source" folder with required libraries that needed for using it, like "highcharts.js", "jquery.js" and "bootstrap.js".
+   
+   In Demo folder we have two demos, "Demo_Original" folder is the sample application without using our language and "Demo_DSL" folder is the same application that applied JSCanvas.
