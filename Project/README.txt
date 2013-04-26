@@ -140,7 +140,7 @@ JSCanvas
 	
    With this language we developed a sample application, Snort Real Time Events Tracking System. Basically it is a website that used for analyzing Snort database and presenting statistics of networking events. In our system we show five different statistics diagrams and tables that network administrator most concerned about and support a handy, user-friendly web interface for accessing and analyzing Snort data.
    
-   With this sample application we intend to show how easy and powerful that you can create with our language to present data in a beautiful way. 
+   With this sample application we intend to show how this language makes it easier for web-based data display and how useful it would be.
    
    The file structure is described below:
    
