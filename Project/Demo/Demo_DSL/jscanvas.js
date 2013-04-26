@@ -117,19 +117,19 @@ function trans3(args){
 	var tbodydata = tabledata[1];
 	
 	var table = $('<table class="table table-bordered">'+
-		      '<thead><tr id="thead"></tr></thead>'+
-		      '<tbody class="tbody"></tbody></table>');
+		      '<thead><tr id="thead'+counts+'"></tr></thead>'+
+		      '<tbody id="tbody'+counts+'"></tbody></table>');
 	$(loc).append(table);
-	//$(table).find('thead').append($('<tr></tr>'));
+	//$(table).find('thead'+counts).append($('<tr></tr>'));
 	for (var i=0; i<theaddata.length; i++){
 	    var elem = $("<th></th>").text(theaddata[i]);
-	    $(table).find('#thead').append($(elem));
+	    $(table).find('#thead'+counts).append($(elem));
 	}
 	for (var i=0; i<tbodydata.length; i++){
 	    var id = "tby"+i;
 	    var tr = document.createElement("tr");
 	    $(tr).attr('id', id);//addClass(id);
-	    $(table).find('.tbody').append(tr);
+	    $(table).find('#tbody'+counts).append(tr);
 	    var row = tbodydata[i];
 	    for (var j=0; j<row.length; j++){
 		var element = $("<th></th>").text(row[j]);
@@ -148,22 +148,23 @@ function trans4(args){
 	var method = formdata['method'];
 	var inputs = formdata['input'];
 	var form = $('<form class="form-horizontal">' +
-		      '<fieldset id="fbody"><div id="legend"></div>' + 
-		      '</fieldset></form>');
+		     '<fieldset id="fbody'+counts+
+		     '"><div id="legend'+counts+'"></div>' + 
+		     '</fieldset></form>');
 	$(loc).append(form);
 	$(form).attr('action',action);
 	$(form).attr('method',method);
 	//$(loc).append(form);
 	//Set form title
 	var lgcontent = $('<legend class=""></legend>').text(title);
-	$(form).find('#legend').append(lgcontent);
+	$(form).find('#legend'+counts).append(lgcontent);
 
 	//Process form inputs
 	for (var i=0; i<inputs.length;i++) {
 	    var inputid = "input"+i;
 	    var cgroup = $('<div class="control-group"></div>');
 	    $(cgroup).attr('id', 'cgroup'+i);
-	    $(form).find('#fbody').append(cgroup);
+	    $(form).find('#fbody'+counts).append(cgroup);
 	    var controls = $('<div class="controls"></div>');
 	    $(controls).attr('id', 'control'+i);
 	    $(form).find('#cgroup'+i).append(controls);
@@ -199,7 +200,6 @@ function trans5(args){
         var loc = document.getElementById(args[4]);
         var x = eval(args[2]);
         var y = eval(args[3]);
-	//alert(eval(y));
         drawChart(loc, cycle, ctitle, xtitle, ytitle, dname, point, x, y);
 };
 
@@ -316,6 +316,9 @@ function drawChart(loc, cycle, ctitle, xtitle, ytitle, dataname, pointnum, xvalu
 	});
 }
 
+// Record the number of macro calls, prevent temporary DOM id name collision
+var counts = 0;
+
 // Macro processor control framework starts
 var macrotable = [
 	[pattern1, trans1], 
@@ -343,6 +346,7 @@ function transform_dsl() {
 			{
 				continue; // normal <p> tag
 			}
+			counts ++;
 			// Hide the macro call element
 			$(element).remove();
 			// Get the corresponding macro translation handle
