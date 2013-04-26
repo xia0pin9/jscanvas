@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html  lang="en">
+  <head>
+    <title>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+	<script class="demo" type="text/javascript">
+	var mytabledata;
+	$.ajax({
+	    url:'query.php',
+	    cache: false,
+	    async: false,
+	    data:'mode=latest',
+	    contentType: "application/json; charset=utf-8",
+	    type: "GET",
+	    success: function(data) {
+		mytabledata = data;
+	}})
+	</script>
+	<p>@CREATE TABLE WITH mytabledata AT #well;</p>
+	<script src="jscanvas.js"></script>
+  </head>
+  <body>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+				<div class="span11">
+					<div class="well" id="well">
+						
+					</div>
+				</div>
+            </div>
+        </div> <!-- /container -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> 
+    <script src="js/vendor/bootstrap.min.js"></script>
+  </body>
+</html>
