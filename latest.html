@@ -5,9 +5,9 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-	<!--<script class="demo" type="text/javascript">
+	<script class="demo" type="text/javascript">
 	var mytabledata;
 	$.ajax({
 	    url:'query.php',
@@ -20,111 +20,21 @@
 		mytabledata = data;
 	}})
 	</script>
-	<script src="demo.js"></script>-->
+	<p>@CREATE TABLE WITH mytabledata AT #well;</p>
+	<script src="jscanvas.js"></script>
   </head>
   <body>
         <div class="container">
             <!-- Example row of columns -->
             <div class="row">
 				<div class="span11">
-					<div class="well">
+					<div class="well" id="well">
 						
-						<!-- Table date from mysql db;
-						data = [
-						thead =>
-							[Source IP	Destination IP	Signature					Timestamp],
-						tbody => [
-							[129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:31]
-							[129.130.10.82	164.113.67.80	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:31]
-							[129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:36]
-							[129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses			2012-05-10 14:35:38]
-							[129.130.10.133	98.129.116.171	SDF_COMBO_ALERT					2012-05-10 14:35:38]
-							[129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses			2012-05-10 14:35:40]
-							[129.130.10.133	98.129.116.171	SDF_COMBO_ALERT					2012-05-10 14:35:40]
-							[129.130.10.133	98.129.116.171	SENSITIVE-DATA Email Addresses			2012-05-10 14:35:42]
-							[129.130.10.133	98.129.116.171	SDF_COMBO_ALERT					2012-05-10 14:35:42]
-							[129.130.10.82	164.113.67.73	(http_inspect) OVERSIZE REQUEST-URI DIRECTORY	2012-05-10 14:35:42]
-						]	
-						-->
-						<!--create table-->
-						<table class="table table-bordered">	
-							<thead>
-								<tr>
-									<th>Source IP</th>
-									<th>Destination IP</th>
-									<th>Signature Info</th>
-									<th>Timestamp</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>129.130.10.82</td>
-									<td>164.113.67.73</td>
-									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
-									<td>2012-05-10 14:35:31</td>
-								</tr>
-								<tr>
-									<td>129.130.10.82</td>
-									<td>164.113.67.80</td>
-									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
-									<td>2012-05-10 14:35:31</td>
-								</tr>
-								<tr>
-									<td>129.130.10.82</td>
-									<td>164.113.67.73</td>
-									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
-									<td>2012-05-10 14:35:36</td>
-								</tr>
-								<tr>
-									<td>129.130.10.133</td>
-									<td>98.129.116.171</td>
-									<td>SENSITIVE-DATA Email Addresses	</td>
-									<td>2012-05-10 14:35:38</td>
-								</tr>
-								<tr>
-									<td>129.130.10.133</td>
-									<td>98.129.116.171</td>
-									<td>SDF_COMBO_ALERT</td>
-									<td>2012-05-10 14:35:38</td>
-								</tr>
-								<tr>
-									<td>129.130.10.133</td>
-									<td>98.129.116.171</td>
-									<td>SENSITIVE-DATA Email Addresses	</td>
-									<td>2012-05-10 14:35:40</td>
-								</tr>
-								<tr>
-									<td>129.130.10.133</td>
-									<td>98.129.116.171</td>
-									<td>SDF_COMBO_ALERT</td>
-									<td>2012-05-10 14:35:40</td>
-								</tr>
-								<tr>
-									<td>129.130.10.133</td>
-									<td>98.129.116.171</td>
-									<td>SENSITIVE-DATA Email Addresses	</td>
-									<td>2012-05-10 14:35:42</td>
-								</tr>
-								<tr>
-									<td>129.130.10.133</td>
-									<td>98.129.116.171</td>
-									<td>SDF_COMBO_ALERT</td>
-									<td>2012-05-10 14:35:42</td>
-								</tr>
-								<tr>
-									<td>129.130.10.82</td>
-									<td>164.113.67.73</td>
-									<td>(http_inspect) OVERSIZE REQUEST-URI DIRECTORY</td>
-									<td>2012-05-10 14:35:42</td>
-								</tr>										
-							</tbody>
-						</table>
-						<!--end create table-->
 					</div>
 				</div>
             </div>
         </div> <!-- /container -->
-    
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> 
     <script src="js/vendor/bootstrap.min.js"></script>
   </body>
 </html>

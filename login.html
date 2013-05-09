@@ -11,19 +11,29 @@
 		<meta name="description" content="" />
 		<meta name="author" content="Yuping" />
 
-		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<link rel="stylesheet" href="css/bootstrap.min.css">
-        <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        	<style>
+            	body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+            	}
+        	</style>
+        	<link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        	<link rel="stylesheet" href="css/main.css">
+        	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+        	<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<script>
+		var myform = {
+		    "title":"Login",
+		    "action":"login.php",
+		    "method":"post",
+		    "input":[['username','Username'],['password','Password'],['button','Login']],
+		}
+		</script>	
+		<p>@CREATE FORM WITH myform AT #well;</p>
+		<script src="jscanvas.js"></script>
 		
 	</head>
 
@@ -36,37 +46,8 @@
 			</header>
 			<div class="" id="loginModal">
 				<div class="modal-body">
-					<div class="well">
+					<div class="well" id="well">
 					<!--form start-->
-					<form class="form-horizontal" action='login.php' method="post">
-						<fieldset>
-						<div id="legend">
-							<legend class="">Login</legend>
-						</div>    
-						<div class="control-group">
-							<!-- Username -->
-							<label class="control-label"  for="username">Username</label>
-							<div class="controls">
-								<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-							</div>
-						</div>
- 
-						<div class="control-group">
-							<!-- Password-->
-							<label class="control-label" for="password">Password</label>
-							<div class="controls">
-								<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-							</div>
-						</div>
- 
-						<div class="control-group">
-							<!-- Button -->
-							<div class="controls">
-								<button class="btn btn-success">Login</button>
-							</div>
-						</div>
-						</fieldset>
-					</form>
 					<!--form end-->
 					</div>
   				</div>

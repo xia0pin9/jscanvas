@@ -1,0 +1,53 @@
+1. What is JSCanvas?
+   JSCanvas is a bottom-up DSPL, implemented as a standalone javascript library, which is specific for the domain of web-based data display. JSCanvas makes it easier for graphical data presentation.
+
+
+2. How do you implement JSCanvas?
+  JSCanvas mainly relies upon three other js libraries: jQuery, Bootstrap, Highcharts. jQuery is a multi-browser JavaScript library designed to simplify the client side scripting of HTML; Highcharts is a JavaScript library that can be used to draw interactive charts for web projects; Bootstrap is a UI web design tool, which contains HTML and CSS-based design templates for typography, forms, charts, and other interface components.
+  
+  Basically, JSCanvas contains a macroprocesser that can dynamically translate predefined (virtual) macro constructor into (real) graphical components, given that the macro patterns that write in a pair of <p></p> tag. Once the client browser finishing loading html dom elements, jquery would get notified. So we puth the whole macro control structure under $(document).ready(function(){}) part, to make sure that JSCanvas would be able to load and check all the dom elements. 
+  
+  When the macro translation process starts, it firstly get all the potential macro-calling dom elements through <p> tag. Then check the content of the <p> tag with the predefined regular expression pattern. Once we get a match, the corresponding macro translating function would be called. And the translated code would be dynamically evaluated within the context of the macro pattern call, the result is that the graphical data structure is presented at the specified location in the page. And finally, the <p> tag and the contained macro calling text are removed via jquery call.
+  
+  At the time when a regular expression pattern matched, all the parameters (content, options, location) are parsed out as strings. We use JavaScript's built-in eval() function to get the meaning of the (content, options) parameters. Since in the same html context, we can see and use user-defined data in the translation function. For the location handle, we firstly extract the id name string, then find the exact element via jquery call.
+  
+  Currently, JSCanvas supports 6 macro-call patterns, they are designed to present data with FORM, TABLE, LINECHART, COLUMNCHART, PIECHART and SPLINECHART. we use JavaScript's built-in regular-expression definition to faciliate the pattern-matching operations. There is a macro expansion handle corresponding with each macro pattern.
+
+
+3. Why do you use the <p> tag?
+  Because we can easily put any macro pattern strings in a <p> tag, without bringing in any other potential syntax errors, and <p> tag is indeed easy to write as well.
+
+
+4. Why do you want to write this JSCanvas, what's the benifits of using this DSL library?
+  (1) JSCanvas tries to seprate the data from structure when presenting graphical contents in web. Usually, we have to embed data and value in a particular location or structure, and even with specific sequence for graphical presentation, which is tedious and error-prone. But with JSCanvas, just tell it what (content), where (location), how (options), the language will give you the desired graphs. The location parameter definition needs to follow css style specification, and we use the id name of the dom element to locate where we should present the graphical data. The options and data content parts need to be defined by the user of JSCanvas in a JavaScript context.
+  
+  (2) JSCanvas can hide some graphical web code to normal users. Just writes the macro constructor in the web as specified, then the library will automatically load and present the graphical data on web page. Since it is all client side code, advanced user may still be able to get the source code of JSCanvas, and know how you draw the graphical data. Users may apply encoding & encrypting options to futher hide the code.
+  
+  (3) JSCanvas lets users to present HTML graphical structure with less code. JSCanvas also follows the "write less, do more" philosophy, we have shown in our demo that we can write less code to do the same things. The specification makes it tremendously easy to present multiple graphical data on one page and present dynamically updating data in a graph. And all the "patterns" are either need standard and fixed structure, or just copy-and-paste coding snippets, thus via JSCanvas, the code get simplified, but we can still get the same graphical data presenting result.
+  
+  (4) JSCanvas is extensible. As a bottom-up DSPL, JSCanvas can be easily expended. Users firstly have to define their own macro pattern "var patterni" through regular expression and the corresponding translation handle "funcion transi", and then put them in the macrotable structure like this:
+	var macrotable = [
+		[pattern1, trans1], 
+		[pattern2, trans2], 
+		[pattern3, trans3], 
+		[pattern4, trans4], 
+		[pattern5, trans5],
+		[pattern6, trans6]
+	];
+	
+
+5. What kinds of data do we need to provide for JSCanvas?
+  Essentially, JSCanvas is capable to present static data, one-time dynamical data, and multi-time dynamic data.
+  
+  (1) For static data. The data content will never change when you refresh the page. You can define this kind of data directly in web source, and then refer to this data definition in the macro call, like the "CREATE FORM" demo in "README.txt".
+  
+  (2) For one-time dynamical data. Data that needs to be dynamically loaded from server again every time the page is loaded, but once loaded, the data won't change if you don't refresh. Since it's dynamical, the content may change the next time you load the page. Currently, macro 1, 2, 5, 6 support both options and data specification. And macro pattern 1, 2, 6 are one-time data example. Both of them show the technique of dynamically fetching data from server via ajax call. However, this is not required for JSCanvas, if you can dynamically get data from client side, then you can directly define your data as a local value in JavaScript, and then append this data to the corresponding macro call.
+  
+  (3) For multi-time dynamical data. Apart from the real data content part, we need to specify data update frequence. The fifth macro constructure definition shows this kind of calling technique. The difference between option and data may not that clear, since options can be regarded as static data in most of the situations. Based on our needs in the demo project, only the fifth macro pattern requires to specify a particular data updata frequence (via "updatacycle" keyword as in the example). But if needed, other macro patterns can be easily changed to support "updatecycle" keyword, since we can specify updatecycle as 0 (no update) for those one-time dynamical data.
+  
+  All the data and option definition must follow the JavaScript code specification, and put in a <script>,</script> tag.
+
+
+6. How can I use JSCanvas? what are the requirements?
+  Please refer to README.
+
