@@ -3,7 +3,7 @@ JSCanvas
 
 1. INTRODUCTION:
 
-   JSCanvas is a bottom-up domain specific language, which is specialized for the domain of web based data display. JSCanvas is mainly built upon jQuery, Highcharts, and Bootstrap libraries, aim at supporting an easy-to-use clean code data display language.
+   JSCanvas is a bottom-up domain specific language, which is specialized for the domain of web based data display. JSCanvas is written in JavaScript and mainly built upon jQuery, Highcharts, and Bootstrap libraries, aim at supporting an easy-to-use clean code data display language.
    
 
 2. DOCUMENTATION:
